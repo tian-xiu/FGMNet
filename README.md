@@ -58,7 +58,7 @@ pip install timm opencv-python scikit-image thop
 
 ---
 
-## 🏋️ Quick Start (Coming Soon)
+## 🏋️ Quick Start
 
 ### 1. Training
 To train FGMNet on COD benchmarks:
@@ -71,3 +71,9 @@ To test the trained model and generate saliency maps:
 ```bash
 python test.py --model_path ./checkpoints/fgmnet_best.pth --dataset_path ./dataset/test/
 ```
+
+### 3. Inference Results
+
+- Download our inference results: [Inference Results](https://pan.baidu.com/s/1_AD2O0q8ZAgbs_N5lXUs7w?pwd=y3v4)
+
+After downloading, place the extracted prediction maps under a directory such as `./results/`. These results can be used for qualitative comparison, metric evaluation, or reproducing the visual examples reported in the paper.
