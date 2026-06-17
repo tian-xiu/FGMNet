@@ -74,6 +74,6 @@ python test.py --model_path ./checkpoints/fgmnet_best.pth --dataset_path ./datas
 
 ### 3. Inference Results
 
-- Download our inference results: [Inference Results](https://pan.baidu.com/s/1_AD2O0q8ZAgbs_N5lXUs7w?pwd=y3v4)
+- Download our inference results: [[Inference Results](https://pan.baidu.com/s/1_AD2O0q8ZAgbs_N5lXUs7w?pwd=y3v4)]
 
 After downloading, place the extracted prediction maps under a directory such as `./results/`. These results can be used for qualitative comparison, metric evaluation, or reproducing the visual examples reported in the paper.
