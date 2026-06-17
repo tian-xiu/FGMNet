@@ -2,11 +2,13 @@
 
 Official PyTorch implementation of the paper: **"FGMNet: Frequency-Guided Gated Mamba Network for Camouflaged Object Detection"**.
 
+[[paper]() [[visual results](https://pan.baidu.com/s/1_AD2O0q8ZAgbs_N5lXUs7w?pwd=y3v4)] [[weights](https://pan.baidu.com/s/11gHxkJErBCuPBtr6ZIbowA?pwd=m2gg)]
+
 ---
 
 ## 📝 Abstract
 
-Camouflaged Object Detection (COD) remains highly challenging due to the extreme visual similarity between targets and backgrounds, which often causes severe boundary ambiguity and incomplete structure recovery. To address these issues, we propose a novel Frequency-Guided Gated Mamba Network (FGMNet), which integrates frequency-domain priors with efficient state-space sequence modeling for accurate pixel-level segmentation. Specifically, a **Feature Aggregation Module (FAM)** is designed to enhance local structural perception by adaptively capturing isotropic and anisotropic spatial cues. To preserve fine boundary details lost during backbone downsampling, we design a **Frequency-Aware Injection (FAI)** module that extracts multi-scale high-frequency information via discrete wavelet transform and injects it into the decoding hierarchy. In addition, a **Context-Modulated Fusion (CMFusion)** block is developed to suppress background clutter and establish robust global semantic context. For long-range dependency modeling, we propose a **Scan Routing Mamba (SRM)** decoder that dynamically routes features between bidirectional axial and rotation-aware scanning paths, enabling comprehensive omnidirectional sequence reasoning to preserve seamless topological continuity. Extensive experiments on four COD benchmarks and five polyp segmentation datasets demonstrate that FGMNet consistently outperforms state-of-the-art methods, achieving superior boundary precision, structural consistency, and strong generalization capability.
+Camouflaged Object Detection (COD) remains highly challenging due to the extreme visual similarity between targets and backgrounds, which often causes severe boundary ambiguity and incomplete struc[...]
 
 ---
 
@@ -14,7 +16,7 @@ Camouflaged Object Detection (COD) remains highly challenging due to the extreme
 
 ![FGMNet Architecture](./images/fgm.png)
 
-*Figure 1: Architectural layout of the proposed Frequency-Guided Gated Mamba Network (FGMNet). The left panel illustrates the overall framework of the network, which includes the Feature Aggregation Module (FAM), Frequency-Aware Injection (FAI), and the Scan Routing Mamba (SRM) Decoder. The right panel depicts the detailed architecture of the Context-Modulated Fusion (CMFusion) block.*
+*Figure 1: Architectural layout of the proposed Frequency-Guided Gated Mamba Network (FGMNet). The left panel illustrates the overall framework of the network, which includes the Feature Aggregati[...]
 
 ---
 
