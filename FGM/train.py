@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader
 
 from models import FGMNet
 from utils import get_transforms
-from utils.losses import DiceLoss
+from utils.losses import CombinedLoss
 from dataset import DummyCODDataset
 
 
@@ -32,31 +32,41 @@ def train_cli(args):
 
     # optimizer and loss
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
-    criterion = DiceLoss()
+    criterion = CombinedLoss()
 
     # training loop
     os.makedirs(args.checkpoint_dir, exist_ok=True)
     model.train()
     for epoch in range(args.epochs):
         epoch_loss = 0.0
+        epoch_components = {'bce': 0.0, 'iou': 0.0, 'ssim': 0.0, 'dice': 0.0}
         for i, (imgs, masks) in enumerate(dataloader):
             imgs = imgs.to(device).float()
             masks = masks.to(device).float()
 
             preds = model(imgs)
-            loss = criterion(preds, masks)
+            loss, components = criterion(preds, masks, return_components=True)
 
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
             epoch_loss += loss.item()
+            for k in epoch_components:
+                epoch_components[k] += components[k].item()
 
             if (i + 1) % 10 == 0:
-                print(f'Epoch [{epoch+1}/{args.epochs}] Step [{i+1}/{len(dataloader)}] Loss: {loss.item():.4f}')
+                print(f'Epoch [{epoch+1}/{args.epochs}] Step [{i+1}/{len(dataloader)}] '
+                      f'Total: {loss.item():.4f} | BCE: {components["bce"].item():.4f} '
+                      f'IoU: {components["iou"].item():.4f} SSIM: {components["ssim"].item():.4f} '
+                      f'Dice: {components["dice"].item():.4f}')
 
-        avg_loss = epoch_loss / len(dataloader)
-        print(f'Epoch [{epoch+1}] Average Loss: {avg_loss:.4f}')
+        n = len(dataloader)
+        avg_loss = epoch_loss / n
+        avg_components = {k: v / n for k, v in epoch_components.items()}
+        print(f'Epoch [{epoch+1}] Avg Total: {avg_loss:.4f} | '
+              f'BCE: {avg_components["bce"]:.4f} IoU: {avg_components["iou"]:.4f} '
+              f'SSIM: {avg_components["ssim"]:.4f} Dice: {avg_components["dice"]:.4f}')
 
         # save checkpoint
         ckpt_path = os.path.join(args.checkpoint_dir, f'fgmnet_epoch{epoch+1}.pth')
